@@ -35,13 +35,14 @@ def quantize_image(pixels, width, height, n=8, grayscale=False):
             r, g, b = pixels[x, y][:3]
             pixels[x, y] = quantize_pixel(r, g, b, n, grayscale)
 
+# convert image to grayscale without changing the color depth
 def grayscale_image(pixels, width, height):
     for x in range(width):
         for y in range(height):
             r, g, b = pixels[x, y][:3]
             pixels[x, y] = (int(0.299 * r + 0.587 * g + 0.114 * b),) * 3
 
-# adjust_height_percentage scales imag 
+# adjust_height_percentage scales height based on the width of the image to maintain the aspect ratio
 def resize_image(image, new_width=100, adjust_height_percentage=1):
     width, height = image.size
     ratio = (height * adjust_height_percentage) / width
