@@ -30,12 +30,12 @@ def main():
         except ValueError:
             return print(f"Invalid or out of range. Selection must be between 0 and {len(files) - 1}.")
 
-    if not os.path.exists(f"media/{FILE}"):
+    if not os.path.exists(os.path.join("media", FILE)):
         return print(f"{FILE} does not exist.")
 
     file_name = os.path.splitext(FILE)[0]
 
-    if os.path.exists(f"output/{file_name}"):
+    if os.path.exists(os.path.join("output", file_name)):
         return print(f"{file_name} already converted.")
 
     output_path = f"output/{file_name}"

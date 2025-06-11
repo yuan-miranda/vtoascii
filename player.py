@@ -32,7 +32,7 @@ def main():
             return print(f"Invalid or out of range. Selection must be between 0 and {len(files) - 1}.")
 
     
-    if not os.path.exists(f"media/{FILE}"):
+    if not os.path.exists(os.path.join("output", FILE)):
         return print(f"{FILE} does not exist.")
 
     file_name = os.path.splitext(FILE)[0]
