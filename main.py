@@ -13,6 +13,7 @@ def to_frames(video, output_path):
 
     frame_count = 0
     while True:
+        ret, frame = cap.read()
         if not ret:
             break
 
