@@ -4,7 +4,7 @@ from PIL import Image
 import time
 from main import to_frames, resize_image, quantize_image, to_ascii
 
-WIDTH = 64
+WIDTH = 32
 HEIGHT_PERCENTAGE = 0.38
 BIT_DEPTH = 8
 FILE_NAME = None
