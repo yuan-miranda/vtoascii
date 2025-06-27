@@ -80,7 +80,7 @@ def resize_image(image, new_width=100, adjust_height_percentage=1):
     return resized_image
 
 
-def to_ascii(pixels, width, height, ascii_chars=" .:-=+*#%@"):
+def to_ascii(pixels, width, height, ascii_chars="  .:-=+*#%@"):
     line = ""
     for y in range(height):
         for x in range(width):
