@@ -43,7 +43,7 @@ def to_frames(video, frames_path):
         frame_count += 1
 
     cap.release()
-    print(f"Extracted {frame_count} frames from {video}")
+    print(f"Extracted {frame_count} frames from '{video}'")
 
 
 # quatize color to the n color i.e from 16bit to nbit color

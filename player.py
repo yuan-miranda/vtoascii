@@ -35,6 +35,18 @@ def main():
     args = parser.parse_args()
     FILE_BASE_NAME = args.file or args.pos_file_base_name
 
+    print(
+        r"""
+         __                             .__.__ 
+___  ___/  |_  _________    ______ ____ |__|__|
+\  \/ /\   __\/  _ \__  \  /  ___// ___\|  |  |
+ \   /  |  | (  <_> ) __ \_\___ \\  \___|  |  |
+  \_/   |__|  \____(____  /____  >\___  >__|__|
+                        \/     \/     \/       
+        Convert video to ASCII art frames
+"""
+    )
+
     if FILE_BASE_NAME is None:
         try:
             files = os.listdir("output")
@@ -47,6 +59,7 @@ def main():
                 "No files found in /output directory. Please convert a video first."
             )
 
+        print("Available files in /output directory:")
         for i, file in enumerate(files):
             print(f"{i}: {file}")
 

@@ -80,6 +80,18 @@ def main():
     HEIGHT_PERCENTAGE = args.pos_height_percentage or args.height_percentage
     BIT_DEPTH = args.pos_bit_depth or args.bit_depth
 
+    print(
+        r"""
+         __                             .__.__ 
+___  ___/  |_  _________    ______ ____ |__|__|
+\  \/ /\   __\/  _ \__  \  /  ___// ___\|  |  |
+ \   /  |  | (  <_> ) __ \_\___ \\  \___|  |  |
+  \_/   |__|  \____(____  /____  >\___  >__|__|
+                        \/     \/     \/       
+        Convert video to ASCII art frames
+"""
+    )
+
     if FILE_NAME is None:
         try:
             files = os.listdir("media")
@@ -92,6 +104,7 @@ def main():
                 "No files found in /media directory. Please add a video file to convert."
             )
 
+        print("Available files in /media directory:")
         for i, file in enumerate(files):
             print(f"{i}: {file}")
 
@@ -122,21 +135,26 @@ def main():
 
     time_start = time.time()
 
+    print(f"\nConverting '{FILE_NAME}' to image frames...")
     to_frames(media_path, frames_path)
     frames = sorted(os.listdir(frames_path), key=lambda x: int(os.path.splitext(x)[0]))
 
     # resize image
+    print(f"Resizing {len(frames)} frames to {WIDTH}x{new_height}...")
     for i in frames:
         img = resize_image(Image.open(f"{frames_path}/{i}"), WIDTH, HEIGHT_PERCENTAGE)
         img.save(f"{frames_path}/{i}")
 
-    # quantize image to 8 bit color
+    # quantize image to 8 bit grayscale
+    print(f"Quantizing {len(frames)} frames to {BIT_DEPTH} bit grayscale...")
     for i in frames:
         img = Image.open(f"{frames_path}/{i}")
         width, height = img.size
         quantize_image(img.load(), width, height, grayscale=True)
         img.save(f"{frames_path}/{i}")
 
+    # Convert frames to ascii
+    print(f"Converting {len(frames)} frames to ASCII art...")
     txt_path = os.path.join(output_path, f"{file_base_name}.txt")
     with open(txt_path, "w") as f:
         for i in frames:
