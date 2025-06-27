@@ -1,6 +1,7 @@
 import sys
 import os
 import time
+import argparse
 
 FILE_BASE_NAME = None
 
@@ -14,9 +15,27 @@ def clear_console():
 
 def main():
     global FILE_BASE_NAME
-    if len(sys.argv) > 1:
-        FILE_BASE_NAME = sys.argv[1]
-    elif FILE_BASE_NAME is None:
+    parser = argparse.ArgumentParser(
+        description="Display the ASCII art from a converted video."
+    )
+
+    # positional
+    parser.add_argument(
+        "pos_file_base_name",
+        nargs="?",
+    )
+
+    # optional
+    parser.add_argument(
+        "-f",
+        "--file",
+        help="Specify the base name of the file to display (file name without extension).",
+    )
+
+    args = parser.parse_args()
+    FILE_BASE_NAME = args.file or args.pos_file_base_name
+
+    if FILE_BASE_NAME is None:
         try:
             files = os.listdir("output")
 
