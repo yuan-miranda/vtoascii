@@ -17,9 +17,16 @@ def main():
     if len(sys.argv) > 1:
         FILE_BASE_NAME = sys.argv[1]
     elif FILE_BASE_NAME is None:
-        files = os.listdir("output")
-        if not files:
-            return print("No files found in /output directory.")
+        try:
+            files = os.listdir("output")
+
+            if not files:
+                raise FileNotFoundError("No files found in /output directory.")
+        except FileNotFoundError:
+            os.makedirs("output", exist_ok=True)
+            return print(
+                "No files found in /output directory. Please convert a video first."
+            )
 
         for i, file in enumerate(files):
             print(f"{i}: {file}")

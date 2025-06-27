@@ -15,9 +15,16 @@ def main():
     if len(sys.argv) > 1:
         FILE_NAME = sys.argv[1]
     elif FILE_NAME is None:
-        files = os.listdir("media")
-        if not files:
-            return print("No files found in /media directory.")
+        try:
+            files = os.listdir("media")
+
+            if not files:
+                raise FileNotFoundError("No files found in /media directory.")
+        except FileNotFoundError:
+            os.makedirs("media", exist_ok=True)
+            return print(
+                "No files found in /media directory. Please add a video file to convert."
+            )
 
         for i, file in enumerate(files):
             print(f"{i}: {file}")
@@ -44,7 +51,6 @@ def main():
     media_path = os.path.join("media", FILE_NAME)
     output_path = os.path.join("output", file_base_name)
     frames_path = os.path.join(output_path, "frames")
-    os.makedirs(frames_path, exist_ok=True)
 
     time_start = time.time()
 

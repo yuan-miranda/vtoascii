@@ -3,8 +3,8 @@ import cv2
 
 
 # turn video to jpg frames
-def to_frames(video, output_path):
-    os.makedirs(output_path, exist_ok=True)
+def to_frames(video, frames_path):
+    os.makedirs(frames_path, exist_ok=True)
 
     cap = cv2.VideoCapture(video)
     if not cap.isOpened():
@@ -17,7 +17,7 @@ def to_frames(video, output_path):
         if not ret:
             break
 
-        img_path = os.path.join(output_path, f"{frame_count}.jpg")
+        img_path = os.path.join(frames_path, f"{frame_count}.jpg")
         cv2.imwrite(img_path, frame)
         frame_count += 1
 
