@@ -2,7 +2,14 @@ import sys
 import os
 from PIL import Image
 import time
-from main import to_frames, resize_image, quantize_image, to_ascii
+from main import (
+    to_frames,
+    resize_image,
+    quantize_image,
+    to_ascii,
+    get_media_dimensions,
+    get_new_height,
+)
 
 WIDTH = 32
 HEIGHT_PERCENTAGE = 0.38
@@ -49,6 +56,11 @@ def main():
         return print(f"{file_base_name} already converted.")
 
     media_path = os.path.join("media", FILE_NAME)
+
+    media_width, media_height = get_media_dimensions(media_path)
+    new_height = get_new_height(media_width, media_height, WIDTH, HEIGHT_PERCENTAGE)
+    file_base_name = f"{file_base_name}_{WIDTH}x{new_height}_{BIT_DEPTH}bit"
+
     output_path = os.path.join("output", file_base_name)
     frames_path = os.path.join(output_path, "frames")
 
@@ -59,16 +71,14 @@ def main():
 
     # resize image
     for i in frames:
-        img = Image.open(f"{frames_path}/{i}")
-        img = resize_image(img, WIDTH, HEIGHT_PERCENTAGE)
+        img = resize_image(Image.open(f"{frames_path}/{i}"), WIDTH, HEIGHT_PERCENTAGE)
         img.save(f"{frames_path}/{i}")
 
     # quantize image to 8 bit color
     for i in frames:
         img = Image.open(f"{frames_path}/{i}")
         width, height = img.size
-        pixels = img.load()
-        quantize_image(pixels, width, height, grayscale=True)
+        quantize_image(img.load(), width, height, grayscale=True)
         img.save(f"{frames_path}/{i}")
 
     txt_path = os.path.join(output_path, f"{file_base_name}.txt")

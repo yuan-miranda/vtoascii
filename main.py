@@ -2,6 +2,27 @@ import os
 import cv2
 
 
+# get the media dimensions
+def get_media_dimensions(media_path):
+    cap = cv2.VideoCapture(media_path)
+    if not cap.isOpened():
+        cap.release()
+        raise ValueError(f"Could not open media file: {media_path}")
+
+    media_width, media_height = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(
+        cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    )
+    cap.release()
+
+    return media_width, media_height
+
+
+# get the new height based on the width and height percentage
+def get_new_height(media_width, media_height, width=100, height_percentage=1):
+    ratio = (media_height * height_percentage) / media_width
+    return int(width * ratio)
+
+
 # turn video to jpg frames
 def to_frames(video, frames_path):
     os.makedirs(frames_path, exist_ok=True)
@@ -54,8 +75,7 @@ def grayscale_image(pixels, width, height):
 # adjust_height_percentage scales height based on the width of the image to maintain the aspect ratio
 def resize_image(image, new_width=100, adjust_height_percentage=1):
     width, height = image.size
-    ratio = (height * adjust_height_percentage) / width
-    new_height = int(new_width * ratio)
+    new_height = get_new_height(width, height, new_width, adjust_height_percentage)
     resized_image = image.resize((new_width, new_height))
     return resized_image
 
