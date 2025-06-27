@@ -1,5 +1,6 @@
 import sys
 import os
+import argparse
 from PIL import Image
 import time
 from main import (
@@ -11,17 +12,76 @@ from main import (
     get_new_height,
 )
 
+FILE_NAME = None
 WIDTH = 32
 HEIGHT_PERCENTAGE = 0.38
 BIT_DEPTH = 8
-FILE_NAME = None
 
 
 def main():
-    global FILE_NAME
-    if len(sys.argv) > 1:
-        FILE_NAME = sys.argv[1]
-    elif FILE_NAME is None:
+    global WIDTH, HEIGHT_PERCENTAGE, BIT_DEPTH, FILE_NAME
+
+    parser = argparse.ArgumentParser(description="Convert video to ASCII art frames.")
+
+    # positional
+    parser.add_argument(
+        "pos_file_name",
+        nargs="?",
+    )
+    parser.add_argument(
+        "pos_width",
+        nargs="?",
+        type=int,
+        default=WIDTH,
+    )
+    parser.add_argument(
+        "pos_height_percentage",
+        nargs="?",
+        type=float,
+        default=HEIGHT_PERCENTAGE,
+    )
+    parser.add_argument(
+        "pos_bit_depth",
+        nargs="?",
+        type=int,
+        default=BIT_DEPTH,
+    )
+
+    # optional
+    parser.add_argument(
+        "-f",
+        "--file",
+        help="Specify the video file to convert.",
+    )
+    parser.add_argument(
+        "-w",
+        "--width",
+        type=int,
+        default=WIDTH,
+        help="Width of the ASCII art (default: 32).",
+    )
+    parser.add_argument(
+        "-p",
+        "--height-percentage",
+        type=float,
+        default=HEIGHT_PERCENTAGE,
+        help="Height percentage relative to width (default: 0.38).",
+    )
+    parser.add_argument(
+        "-b",
+        "--bit-depth",
+        type=int,
+        default=BIT_DEPTH,
+        help="Bit depth for color quantization (default: 8).",
+    )
+
+    args = parser.parse_args()
+    FILE_NAME = args.pos_file_name or args.file
+    WIDTH = args.pos_width or args.width
+    HEIGHT_PERCENTAGE = args.pos_height_percentage or args.height_percentage
+    BIT_DEPTH = args.pos_bit_depth or args.bit_depth
+
+    if FILE_NAME is None:
         try:
             files = os.listdir("media")
 
@@ -52,9 +112,6 @@ def main():
         return print(f"{FILE_NAME} does not exist.")
 
     file_base_name = os.path.splitext(FILE_NAME)[0]
-    if os.path.exists(os.path.join("output", file_base_name)):
-        return print(f"{file_base_name} already converted.")
-
     media_path = os.path.join("media", FILE_NAME)
 
     media_width, media_height = get_media_dimensions(media_path)
