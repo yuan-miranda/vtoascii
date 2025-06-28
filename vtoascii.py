@@ -71,14 +71,10 @@ def main():
     args = parser.parse_args()
     FILE_NAME = args.pos_file_name or args.file
     WIDTH = args.pos_width or args.width or WIDTH
-    HEIGHT_PERCENTAGE = args.pos_height_percentage or args.height_percentage or HEIGHT_PERCENTAGE
+    HEIGHT_PERCENTAGE = (
+        args.pos_height_percentage or args.height_percentage or HEIGHT_PERCENTAGE
+    )
     BIT_DEPTH = args.pos_bit_depth or args.bit_depth or BIT_DEPTH
-
-    print("Arguments:")
-    print(f"File Name: {FILE_NAME}")
-    print(f"Width: {WIDTH}")
-    print(f"Height Percentage: {HEIGHT_PERCENTAGE}")
-    print(f"Bit Depth: {BIT_DEPTH}")
 
     print(
         r"""
@@ -119,6 +115,35 @@ ___  ___/  |_  _________    ______ ____ |__|__|
             return print(
                 f"Invalid or out of range. Selection must be between 0 and {len(files) - 1}."
             )
+
+        try:
+            width_input = input(f"Width Length (default: {WIDTH}):\n> ").strip()
+            if width_input:
+                WIDTH = int(width_input)
+                if WIDTH <= 0:
+                    raise ValueError("Width must be positive")
+        except ValueError:
+            print(f"Invalid width. Using default: {WIDTH}")
+
+        try:
+            height_input = input(
+                f"Height Percentage (defualt: {HEIGHT_PERCENTAGE}):\n> "
+            ).strip()
+            if height_input:
+                HEIGHT_PERCENTAGE = float(height_input)
+                if HEIGHT_PERCENTAGE <= 0:
+                    raise ValueError("Height percentage must be positive")
+        except ValueError:
+            print(f"Invalid height percentage. Using default: {HEIGHT_PERCENTAGE}")
+
+        try:
+            bit_input = input(f"Bit Depth (default: {BIT_DEPTH}bit):\n> ").strip()
+            if bit_input:
+                BIT_DEPTH = int(bit_input)
+                if BIT_DEPTH <= 0:
+                    raise ValueError("Bit depth must be positive")
+        except ValueError:
+            print(f"Invalid bit depth. Using default: {BIT_DEPTH}bit")
 
     if not os.path.exists(os.path.join("media", FILE_NAME)):
         return print(f"{FILE_NAME} does not exist.")
@@ -164,7 +189,9 @@ ___  ___/  |_  _________    ______ ____ |__|__|
             f.write(ascii_img)
             f.write("END\n")
 
-    print(f"Converted video frames to ascii animation in {time.time() - time_start:.2f} seconds")
+    print(
+        f"Converted video frames to ascii animation in {time.time() - time_start:.2f} seconds"
+    )
 
 
 if __name__ == "__main__":
