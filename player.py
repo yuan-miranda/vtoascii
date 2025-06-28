@@ -83,7 +83,7 @@ ___  ___/  |_  _________    ______ ____ |__|__|
         lines = f.readlines()
         for line in lines:
             if line == "END\n":
-                # time.sleep(0.03)
+                time.sleep(0.02)
                 clear_console()
                 continue
 
