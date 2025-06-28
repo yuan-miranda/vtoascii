@@ -20,7 +20,7 @@ BIT_DEPTH = 8
 def main():
     global WIDTH, HEIGHT_PERCENTAGE, BIT_DEPTH, FILE_NAME
 
-    parser = argparse.ArgumentParser(description="Convert video to ASCII art frames.")
+    parser = argparse.ArgumentParser(description="Convert video to ASCII animation.")
 
     # positional
     parser.add_argument(
@@ -57,7 +57,7 @@ def main():
         "--width",
         type=int,
         default=WIDTH,
-        help="Width of the ASCII art (default: 32).",
+        help="Width of the ASCII animation (default: 32).",
     )
     parser.add_argument(
         "-p",
@@ -88,7 +88,7 @@ ___  ___/  |_  _________    ______ ____ |__|__|
  \   /  |  | (  <_> ) __ \_\___ \\  \___|  |  |
   \_/   |__|  \____(____  /____  >\___  >__|__|
                         \/     \/     \/       
-        Convert video to ASCII art frames
+        Convert video to ASCII animation
 """
     )
 
@@ -135,7 +135,7 @@ ___  ___/  |_  _________    ______ ____ |__|__|
 
     time_start = time.time()
 
-    print(f"\nConverting '{FILE_NAME}' to image frames...")
+    print(f"\nConverting '{FILE_NAME}' to video frames...")
     to_frames(media_path, frames_path)
     frames = sorted(os.listdir(frames_path), key=lambda x: int(os.path.splitext(x)[0]))
 
@@ -146,7 +146,7 @@ ___  ___/  |_  _________    ______ ____ |__|__|
         img.save(f"{frames_path}/{i}")
 
     # quantize image to 8 bit grayscale
-    print(f"Quantizing {len(frames)} frames to {BIT_DEPTH} bit grayscale...")
+    print(f"Quantizing {len(frames)} frames to {BIT_DEPTH}bit grayscale...")
     for i in frames:
         img = Image.open(f"{frames_path}/{i}")
         width, height = img.size
@@ -154,7 +154,7 @@ ___  ___/  |_  _________    ______ ____ |__|__|
         img.save(f"{frames_path}/{i}")
 
     # Convert frames to ascii
-    print(f"Converting {len(frames)} frames to ASCII art...")
+    print(f"Converting {len(frames)} frames to ASCII animation...")
     txt_path = os.path.join(output_path, f"{file_base_name}.txt")
     with open(txt_path, "w") as f:
         for i in frames:
@@ -164,7 +164,7 @@ ___  ___/  |_  _________    ______ ____ |__|__|
             f.write(ascii_img)
             f.write("END\n")
 
-    print(f"Converted frames to ascii in {time.time() - time_start:.2f} seconds")
+    print(f"Converted video frames to ascii animation in {time.time() - time_start:.2f} seconds")
 
 
 if __name__ == "__main__":

@@ -16,9 +16,8 @@ def clear_console():
 
 def main():
     global FILE_BASE_NAME
-    parser = argparse.ArgumentParser(
-        description="Display the ASCII art from a converted video."
-    )
+
+    parser = argparse.ArgumentParser(description="Display ASCII animation.")
 
     # positional
     parser.add_argument(
@@ -30,7 +29,7 @@ def main():
     parser.add_argument(
         "-f",
         "--file",
-        help="Specify the base name of the file to display (file name without extension).",
+        help="Specify the base name of the file to display.",
     )
 
     args = parser.parse_args()
@@ -44,7 +43,7 @@ ___  ___/  |_  _________    ______ ____ |__|__|
  \   /  |  | (  <_> ) __ \_\___ \\  \___|  |  |
   \_/   |__|  \____(____  /____  >\___  >__|__|
                         \/     \/     \/       
-        Convert video to ASCII art frames
+        Convert video to ASCII animation
 """
     )
 
