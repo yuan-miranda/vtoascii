@@ -31,19 +31,16 @@ def main():
         "pos_width",
         nargs="?",
         type=int,
-        default=WIDTH,
     )
     parser.add_argument(
         "pos_height_percentage",
         nargs="?",
         type=float,
-        default=HEIGHT_PERCENTAGE,
     )
     parser.add_argument(
         "pos_bit_depth",
         nargs="?",
         type=int,
-        default=BIT_DEPTH,
     )
 
     # optional
@@ -56,29 +53,32 @@ def main():
         "-w",
         "--width",
         type=int,
-        default=WIDTH,
         help="Width of the ASCII animation (default: 32).",
     )
     parser.add_argument(
         "-p",
         "--height-percentage",
         type=float,
-        default=HEIGHT_PERCENTAGE,
         help="Height percentage relative to width (default: 0.38).",
     )
     parser.add_argument(
         "-b",
         "--bit-depth",
         type=int,
-        default=BIT_DEPTH,
         help="Bit depth for color quantization (default: 8).",
     )
 
     args = parser.parse_args()
     FILE_NAME = args.pos_file_name or args.file
-    WIDTH = args.pos_width or args.width
-    HEIGHT_PERCENTAGE = args.pos_height_percentage or args.height_percentage
-    BIT_DEPTH = args.pos_bit_depth or args.bit_depth
+    WIDTH = args.pos_width or args.width or WIDTH
+    HEIGHT_PERCENTAGE = args.pos_height_percentage or args.height_percentage or HEIGHT_PERCENTAGE
+    BIT_DEPTH = args.pos_bit_depth or args.bit_depth or BIT_DEPTH
+
+    print("Arguments:")
+    print(f"File Name: {FILE_NAME}")
+    print(f"Width: {WIDTH}")
+    print(f"Height Percentage: {HEIGHT_PERCENTAGE}")
+    print(f"Bit Depth: {BIT_DEPTH}")
 
     print(
         r"""
