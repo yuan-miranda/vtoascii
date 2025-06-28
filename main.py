@@ -1,5 +1,17 @@
+import sys
 import os
 import cv2
+
+
+def get_platform():
+    if sys.platform.startswith("win"):
+        return "windows"
+    elif sys.platform.startswith("linux"):
+        return "linux"
+    elif sys.platform.startswith("darwin"):
+        return "macos"
+    else:
+        raise ValueError("Bro's running on a potato chip💀")
 
 
 # get the media dimensions

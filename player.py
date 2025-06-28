@@ -1,16 +1,17 @@
-import sys
 import os
 import time
 import argparse
+from main import get_platform
 
 FILE_BASE_NAME = None
+PLATFORM = get_platform()
 
 
 def clear_console():
-    if sys.platform.startswith("win"):
-        _ = os.system("cls")
+    if PLATFORM == "windows":
+        os.system("cls")
     else:
-        _ = os.system("clear")
+        os.system("clear")
 
 
 def main():
@@ -83,7 +84,7 @@ ___  ___/  |_  _________    ______ ____ |__|__|
         lines = f.readlines()
         for line in lines:
             if line == "END\n":
-                time.sleep(0.03)
+                # time.sleep(0.03)
                 clear_console()
                 continue
 
