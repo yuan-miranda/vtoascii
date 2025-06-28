@@ -1,6 +1,6 @@
 # Video to Ascii (vtoascii)
 
-A Python script used in [nascii](https://github.com/yuan-miranda/nascii), a Discord bot that turns videos into ASCII animation. Given a video file in './media', the script processes each frame and converts it into a text-based representation using a predefined gradient of characters.
+A Python script used in [nascii](https://github.com/yuan-miranda/nascii), a Discord bot that turns videos into ASCII animation. Given a video file in `./media`, the script processes each frame and converts it into a text-based representation using a predefined gradient of characters.
 
 It maps pixel brightness to the character set `  .:-=+*#%@`, ordered from lowest to highest visual density.
 
@@ -32,7 +32,7 @@ python .\vtoascii.py --help
 ```
 py .\vtoascii.py
 ```
-Inline video file name from './media'
+Inline video file name from `./media`
 ```
 py .\vtoascii.py "video.mp4"
 ```
@@ -48,7 +48,7 @@ py .\vtoascii.py "video.mp4" 64 1 16
 ```
 python .\player.py
 ```
-Inline file base name from './output'
+Inline file base name from `./output`
 ```
 python .\player.py "video"
 ```
