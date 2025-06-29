@@ -71,15 +71,6 @@ def quantize_image(pixels, width, height, n=8, grayscale=False):
             pixels[x, y] = quantize_color(r, g, b, n, grayscale)
 
 
-# convert image to grayscale without changing the color depth
-# def grayscale_image(pixels, width, height):
-#     for x in range(width):
-#         for y in range(height):
-#             r, g, b = pixels[x, y][:3]
-#             gray = rgb_to_grayscale(r, g, b)
-#             pixels[x, y] = (gray, gray, gray)
-
-
 # adjust_height_percentage scales height based on the width of the image to maintain the aspect ratio
 def resize_image(image, new_width=100, adjust_height_percentage=1):
     width, height = image.size
