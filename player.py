@@ -1,17 +1,13 @@
 import os
 import time
 import argparse
-from main import get_platform
 
 FILE_BASE_NAME = None
-PLATFORM = get_platform()
-
+FPS = 30
 
 def clear_console():
-    if PLATFORM == "windows":
-        os.system("cls")
-    else:
-        os.system("clear")
+    # move cursor to the top left to overwrite the current content
+    print("\033[H", end="")
 
 
 def main():
@@ -80,14 +76,16 @@ ___  ___/  |_  _________    ______ ____ |__|__|
 
     txt_path = os.path.join("output", FILE_BASE_NAME, f"{FILE_BASE_NAME}.txt")
     with open(txt_path, "r") as f:
-        lines = f.readlines()
-        for line in lines:
+        frame_lines = []
+        for line in f:
             if line == "END\n":
-                time.sleep(0.02)
                 clear_console()
-                continue
+                print("".join(frame_lines), end="")
 
-            print(line, end="")
+                frame_lines = []
+                time.sleep(1 / FPS)
+            else:
+                frame_lines.append(line)
 
 
 if __name__ == "__main__":
