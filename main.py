@@ -47,29 +47,37 @@ def to_frames(video, frames_path):
 
 
 # quatize color to the n color i.e from 16bit to nbit color
-def quantize_color(color, n=8):
-    return int(color / 256 * n) * int(256 / n)
+def quantize_pixel(color, n=8):
+    levels = n - 1
+    return int(color * levels / 255) * (255 // levels)
 
 
-def quantize_pixel(r, g, b, n=8, grayscale=False):
+def rgb_to_grayscale(r, g, b):
+    # luminance coefficients ITU-R BT.601
+    return int(0.299 * r + 0.587 * g + 0.114 * b)
+
+
+def quantize_color(r, g, b, n=8, grayscale=False):
     if grayscale:
-        r = g = b = int(0.299 * r + 0.587 * g + 0.114 * b)
-    return (quantize_color(r, n), quantize_color(g, n), quantize_color(b, n))
+        gray = rgb_to_grayscale(r, g, b)
+        r = g = b = gray
+    return (quantize_pixel(r, n), quantize_pixel(g, n), quantize_pixel(b, n))
 
 
 def quantize_image(pixels, width, height, n=8, grayscale=False):
     for x in range(width):
         for y in range(height):
             r, g, b = pixels[x, y][:3]
-            pixels[x, y] = quantize_pixel(r, g, b, n, grayscale)
+            pixels[x, y] = quantize_color(r, g, b, n, grayscale)
 
 
 # convert image to grayscale without changing the color depth
-def grayscale_image(pixels, width, height):
-    for x in range(width):
-        for y in range(height):
-            r, g, b = pixels[x, y][:3]
-            pixels[x, y] = (int(0.299 * r + 0.587 * g + 0.114 * b),) * 3
+# def grayscale_image(pixels, width, height):
+#     for x in range(width):
+#         for y in range(height):
+#             r, g, b = pixels[x, y][:3]
+#             gray = rgb_to_grayscale(r, g, b)
+#             pixels[x, y] = (gray, gray, gray)
 
 
 # adjust_height_percentage scales height based on the width of the image to maintain the aspect ratio

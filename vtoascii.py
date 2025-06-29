@@ -175,7 +175,8 @@ ___  ___/  |_  _________    ______ ____ |__|__|
     for i in frames:
         img = Image.open(f"{frames_path}/{i}")
         width, height = img.size
-        quantize_image(img.load(), width, height, grayscale=True)
+        pixels = img.load()
+        quantize_image(pixels, width, height)
         img.save(f"{frames_path}/{i}")
 
     # Convert frames to ascii
