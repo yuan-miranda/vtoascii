@@ -3,8 +3,8 @@
 A Python script used in [nascii](https://github.com/yuan-miranda/nascii), a Discord bot that turns videos into ASCII animation. Given a video file in `./media`, the script processes each frame and converts it into a text-based representation using a predefined gradient of characters.
 
 It maps pixel brightness to the character set `  .:-=+*#%@`, ordered from lowest to highest visual density.
-https://github.com/user-attachments/assets/e929bbb1-a114-4e14-8402-d2b11c94934b
 
+https://github.com/user-attachments/assets/e929bbb1-a114-4e14-8402-d2b11c94934b
 [sauce](https://youtu.be/H-4ITUCEWc4?si=MvjU480WidaAQczT)
 
 ## Install
