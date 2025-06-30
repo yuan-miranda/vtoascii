@@ -5,6 +5,7 @@ A Python script used in [nascii](https://github.com/yuan-miranda/nascii), a Disc
 It maps pixel brightness to the character set `  .:-=+*#%@`, ordered from lowest to highest visual density.
 
 https://github.com/user-attachments/assets/e929bbb1-a114-4e14-8402-d2b11c94934b
+
 [sauce](https://youtu.be/H-4ITUCEWc4?si=MvjU480WidaAQczT)
 
 ## Install
