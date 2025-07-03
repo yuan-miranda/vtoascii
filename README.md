@@ -13,7 +13,7 @@ https://github.com/user-attachments/assets/e929bbb1-a114-4e14-8402-d2b11c94934b
 Clone the repository and install the dependencies
 
 ```
-https://github.com/yuan-miranda/vtoascii.git
+git clone https://github.com/yuan-miranda/vtoascii.git
 ```
 
 ```
